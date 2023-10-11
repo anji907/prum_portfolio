@@ -1,0 +1,67 @@
+@import "bootstrap-sprockets";
+@import "bootstrap";
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  padding-top: 120px;
+}
+
+h1 {
+  text-align: center;
+}
+
+form {
+  margin-top: 50px;
+}
+
+label {
+  font-family: Roboto;
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 12px;
+  letter-spacing: 0.15000000596046448px;
+  text-align: left;
+}
+
+.form-control {
+  border: none;
+  outline: none;
+  border-radius: 0;
+  box-shadow: none;
+  border-bottom: 1px solid lightgray;
+  margin-bottom: 10px;
+}
+
+.btn {
+  background: #1B5678;
+  width: 232px;
+  height: 53px;
+  padding: 16px, 80px, 16px, 80px;
+  border-radius: 4px;
+  display: block;
+  margin: 20px auto 0;
+}
+
+// header
+
+.navbar {
+  background-color: #1B5678;
+  height: 120px;
+  display: flex;
+  align-items: center;
+}
+
+#logo {
+  font-family: Roboto;
+  font-size: 36px;
+  font-weight: 700;
+  line-height: 42px;
+  letter-spacing: 0em;
+  text-align: left;
+  color: #FFFFFF;
+  text-decoration: none;
+  margin-left: 20px;
+}
