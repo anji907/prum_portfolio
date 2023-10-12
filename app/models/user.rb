@@ -1,8 +1,9 @@
 class User < ApplicationRecord
   attr_accessor :remember_token
   has_secure_password
+  validates :bio, length: { minimum: 50, maximum: 200 }
   validates :email, presence: true, uniqueness: true
-  validates :password, length: { minimum: 6 }
+  validates :password, length: { minimum: 6 }, allow_nil: true
 
   has_one_attached :avatar
 

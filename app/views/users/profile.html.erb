@@ -1,0 +1,13 @@
+<div class="users-profile">
+  <div class="avatar">
+    <%= image_tag @user.avatar if @user.avatar.attached? %>
+  </div>
+  <div class="bio">
+    <h3>自己紹介</h3>
+    <%= simple_format(@user.bio, sanitize: true) %>
+    <%= button_to '自己紹介を編集する', edit_user_path(@user), method: :get, class: 'btn btn-primary' %>
+  </div>
+</div>
+
+<div class="learning-chart">
+</div>

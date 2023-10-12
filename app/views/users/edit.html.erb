@@ -1,0 +1,15 @@
+<!-- FILEPATH: /Users/yamadaanji/prum/portfolio/app/views/users/edit.html.erb -->
+
+<h1>自己紹介を編集する</h1>
+
+<%= form_with(model: @user, class: 'profile-edit') do |f| %>
+  <%= render 'shared/error_messages', object: @user %>
+  <%= f.label :bio %>
+  <%= f.text_area :bio, class: 'form-control' %>
+  <small>50文字以上、200文字未満で入力してください</small><br>
+
+  <%= f.label :avatar %>
+  <%= f.file_field :avatar %>
+
+  <%= f.submit "自己紹介を確定する", class: 'btn btn-primary' %>
+<% end %>
