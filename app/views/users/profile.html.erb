@@ -1,6 +1,10 @@
 <div class="users-profile">
   <div class="avatar">
-    <%= image_tag @user.avatar if @user.avatar.attached? %>
+    <% if @user.avatar.attached? %>
+      <%= image_tag @user.avatar %>
+    <% else %>
+      <div class="avatar-placeholder"></div>
+    <% end %>
   </div>
   <div class="bio">
     <h3>自己紹介</h3>
@@ -14,8 +18,8 @@
 
   <%= button_to '編集する', '#', method: :get, class: 'btn btn-primary chart-edit-btn' %>
 
-  <div class="chart" style="display: block; box-sizing: border-box; height: 500px; width: 1064px; margin: 0 auto;">
-    <canvas id="myChart"></canvas>
+  <div class="chart">
+    <canvas id="myChart" style="display: block; box-sizing: border-box; height: 500px; width: 1064px; margin: 0 auto;"></canvas>
   </div>
 
   <script>
@@ -24,20 +28,32 @@
     new Chart(ctx, {
       type: 'bar',
       data: {
-        labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+        labels: ['先々月', '先月', '今月'],
         datasets: [{
-          label: '# of Votes',
-          data: [12, 19, 3, 5, 2, 3],
+          label: 'バックエンド',
+          data: [<%= @backend_2months_ago %>, <%= @backend_last_month %>, <%= @backend_this_month %>],
+          borderWidth: 1
+        },
+        {
+          label: 'フロントエンド',
+          data: [<%= @frontend_2months_ago %>, <%= @frontend_last_month %>, <%= @frontend_this_month %>],
+          borderWidth: 1
+        },
+        {
+          label: 'インフラ',
+          data: [<%= @infra_2months_ago %>, <%= @infra_last_month %>, <%= @infra_this_month %>],
           borderWidth: 1
         }]
       },
       options: {
         scales: {
           y: {
-            beginAtZero: true
+            beginAtZero: true,
+            suggestedMax: 100
           }
         }
       }
     });
+
   </script>
 </div>
