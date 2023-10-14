@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_10_13_051912) do
+ActiveRecord::Schema[7.0].define(version: 2023_10_13_052137) do
   create_table "active_storage_attachments", charset: "utf8mb4", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -45,16 +45,30 @@ ActiveRecord::Schema[7.0].define(version: 2023_10_13_051912) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "items", charset: "utf8mb4", force: :cascade do |t|
+    t.string "name", null: false
+    t.integer "learning_time", null: false
+    t.bigint "user_id", null: false
+    t.bigint "category_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["category_id"], name: "index_items_on_category_id"
+    t.index ["user_id", "created_at"], name: "index_items_on_user_id_and_created_at"
+    t.index ["user_id"], name: "index_items_on_user_id"
+  end
+
   create_table "users", charset: "utf8mb4", force: :cascade do |t|
-    t.string "name", limit: 255
-    t.string "email", limit: 255, null: false
-    t.string "password_digest", limit: 255, null: false
+    t.string "name"
+    t.string "email", null: false
+    t.string "password_digest", null: false
     t.text "bio"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "remember_digest", limit: 255
+    t.string "remember_digest"
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "items", "categories"
+  add_foreign_key "items", "users"
 end
