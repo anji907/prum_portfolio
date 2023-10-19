@@ -16,7 +16,7 @@
 <div class="learning-chart">
   <h3 class="chart-title">学習チャート</h3>
 
-  <%= button_to '編集する', '#', method: :get, class: 'btn btn-primary chart-edit-btn' %>
+  <%= button_to '編集する', items_path, method: :get, class: 'btn btn-primary chart-edit-btn' %>
 
   <div class="chart">
     <canvas id="myChart" style="display: block; box-sizing: border-box; height: 500px; width: 1064px; margin: 0 auto;"></canvas>
