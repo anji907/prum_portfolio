@@ -33,8 +33,17 @@ class ItemsController < ApplicationController
 
   def update
     @item = Item.find(params[:id])
-    @item.update!(item_params)
-    redirect_to items_path, flash: { success: "#{@item.name}の学習時間を保存しました" }, status: :found
+    if @item.update(item_params)
+      uri = URI.parse(request.referer)
+      if uri.query
+        params = CGI.parse(uri.query)
+        redirect_to items_path(selected_value: params["selected_value"][0]), flash: { success: "学習時間を更新しました" }
+        return
+      end
+      redirect_to items_path, flash: { success: "#{@item.name}の学習時間を保存しました" }
+    else
+      render 'edit', flash: { danger: "学習時間の保存に失敗しました" }, status: :unprocessable_entity
+    end
   end
 
   def destroy
