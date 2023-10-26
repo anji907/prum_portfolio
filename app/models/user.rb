@@ -1,9 +1,9 @@
 class User < ApplicationRecord
   attr_accessor :remember_token
   has_secure_password
-  validates :bio, length: { minimum: 50, maximum: 200 }
+  validates :bio, length: { minimum: 50, maximum: 200 }, on: :update
   validates :email, presence: true, uniqueness: true
-  validates :password, length: { minimum: 6 }, allow_nil: true
+  validates :password, length: { minimum: 8 }, allow_nil: true
 
   has_one_attached :avatar
   has_many :items, dependent: :destroy
@@ -25,5 +25,10 @@ class User < ApplicationRecord
 
   def authenticated?
     BCrypt::Password.new(remember_digest).is_password?(remember_token)
+  end
+
+  def learning_data(month)
+    learning_data = self.items.where(created_at: month.beginning_of_month..month.end_of_month)
+    return learning_data
   end
 end

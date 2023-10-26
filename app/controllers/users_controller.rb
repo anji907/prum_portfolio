@@ -1,8 +1,5 @@
 class UsersController < ApplicationController
-
-  def show
-    @user = User.find(params[:id])
-  end
+  before_action :logged_in_user, only: [:index, :show, :edit, :update]
 
   def new
     @user = User.new
@@ -12,6 +9,7 @@ class UsersController < ApplicationController
     @user = User.new(user_params)
     if @user.save
       flash[:success]= "こんにちは#{@user}さん！"
+      log_in @user
       redirect_to @user
     else
       render :new, status: :unprocessable_entity
@@ -26,13 +24,13 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
     if @user.update(user_params)
       flash[:success] = "プロフィールを更新しました"
-      redirect_to profile_path
+      redirect_to @user
     else
       render :edit, status: :unprocessable_entity
     end
   end
 
-  def profile
+  def show
     @user = current_user
 
     @backend_2months_ago = Item.where(

@@ -3,10 +3,10 @@
   <div class="col-md-6 col-md-offset-3">
     <%= form_with(model: @user) do |f| %>
       <%= render 'shared/error_messages', object: @user %>
-      <%= f.label :email, value: 'メールアドレス' %>
+      <%= f.label :email %>
       <%= f.email_field :email, class: 'form-control' %>
 
-      <%= f.label :password, value: 'パスワード' %>
+      <%= f.label :password %>
       <%= f.password_field :password, class: 'form-control' %>
 
       <%= f.submit "登録する", class: 'btn btn-primary' %>
