@@ -14,11 +14,20 @@
   <body>
   <%= render 'layouts/header' %>
     <div class="container">
-      <% flash.each do |message_type, message| %>
-        <%= content_tag(:div, message, class: "alert alert-#{message_type}") %>
-      <% end %>
       <%= yield %>
     </div>
   <%= render 'layouts/footer' %>
+  <% if flash[:success].present? %>
+    <script>
+      const modal = document.getElementById('modal');
+      if (modal) {
+        modal.style.display = 'block';
+      }
+      const closeModal = document.getElementById('modalClose');
+      closeModal.addEventListener('click', function(){
+        modal.style.display = 'none';
+      });
+    </script>
+  <% end %>
   </body>
 </html>
