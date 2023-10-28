@@ -1,4 +1,4 @@
-document.addEventListener('turbo:load', () => {
+document.addEventListener('DOMContentLoaded', () => {
   document.getElementById('custom_select').addEventListener('change', function(e) {
     let selectedValue = this.value;
 
