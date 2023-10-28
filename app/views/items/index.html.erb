@@ -2,7 +2,7 @@
   <div class="modalBg">
     <div class="modalWrapper">
       <div class="modalContents">
-        <%= simple_format(flash[:success]) if flash[:success].present? %>
+        <%= simple_format(flash[:success]) %>
       </div>
       <div id="modalClose" class="modalClose">
         <button>スキル編集ページに戻る</button>
@@ -12,6 +12,7 @@
 </section>
 
 <div class="wrapper">
+  <%= render 'shared/flash' unless flash[:success] %>
   <%= select_tag 'custom_select', options_for_select(@months_options) %>
 
   <% Category.all.each do |category| %>
@@ -36,11 +37,13 @@
           <% @items.select{|item| item.category.name == category.name}.each do |item| %>
             <tr>
               <td><%= item.name %></td>
-              <%= form_with(model: item, method: :patch, local: true) do |f| %>
+              <%= form_with(model: item, local: true) do |f| %>
                 <td style="padding: 16px;"><%= f.number_field :learning_time %></td>
-                <td style="padding: 16px;"><%= f.submit '学習時間を保存する', class: 'submit-btn' %></td>
+                <td style="padding: 16px; vertical-align: middle;"><%= f.submit '学習時間を保存する', class: 'submit-btn' %></td>
               <% end %>
-              <td style="padding: 16px 40px 16px 16px;"><div class="delete-link"><%= link_to '削除', item_path(item), data: { turbo_method: :delete, confirm: '本当に削除しますか？' } %></div></td>
+              <td style="padding: 16px 40px 16px 16px; vertical-align: middle;">
+                <%= button_to "削除する", item_path(item), method: :delete, confirm: "本当に削除しますか？", class: 'delete-btn' %>
+              </td>
             </tr>
           <% end %>
         </tbody>
