@@ -26,36 +26,39 @@ class ItemsController < ApplicationController
   end
 
   def create
-    @item = Item.create!(item_params)
-    message = "#{@item.category.name}に#{@item.name}を\n#{@item.learning_time}分で追加しました！"
-    redirect_to items_path, flash: { success: message }, status: :found
+    @item = Item.new(item_params)
+    if @item.save
+      message = "#{@item.category.name}に#{@item.name}を\n#{@item.learning_time}分で追加しました！"
+      redirect_to items_path, flash: { success: message }, status: :found
+    else
+      render 'new', status: :unprocessable_entity
+    end
   end
 
   def update
     @item = Item.find(params[:id])
     if @item.update(item_params)
-      uri = URI.parse(request.referer)
-      if uri.query
-        params = CGI.parse(uri.query)
-        redirect_to items_path(selected_value: params["selected_value"][0]), flash: { success: "学習時間を更新しました" }
-        return
-      end
-      redirect_to items_path, flash: { success: "#{@item.name}の学習時間を保存しました" }
+      redirect_to determine_redirect_path, flash: { success: "#{@item.name}の学習時間を保存しました。" }, status: :found
     else
-      render 'edit', flash: { danger: "学習時間の保存に失敗しました" }, status: :unprocessable_entity
+      redirect_to determine_redirect_path, flash: { danger: "学習記録に失敗しました。" }, status: :unprocessable_entity
     end
   end
 
   def destroy
-    item = Item.find(params[:id])
-    item.destroy
-    flash[:success] = "#{item.name}を削除しました!"
-    redirect_to items_path, status: :see_other
+    @item = Item.find(params[:id])
+    @item.destroy
+    redirect_to determine_redirect_path, flash: { success: "#{@item.name}を削除しました!" }, status: :see_other 
   end
 
   private
 
     def item_params
       params.require(:item).permit(:name, :learning_time, :category_id).merge(user_id: current_user.id)
+    end
+
+    def determine_redirect_path
+      uri = URI.parse(request.referer)
+      query = CGI.parse(uri.query) if uri.query
+      path = query.nil? ? items_path : items_path(selected_value: query["selected_value"][0])
     end
 end
