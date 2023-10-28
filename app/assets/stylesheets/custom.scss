@@ -77,21 +77,24 @@ nav {
   display: flex;
   justify-content: center;
   align-items: center;
-  a {
-    color: black;
-    font-family: Roboto;
-    font-size: 18px;
-    font-weight: 400;
-    line-height: 21px;
-    letter-spacing: 0em;
-    display: block;
-    height: 53px;
-    width: 170px;
-    border-radius: 4px;
-    background-color: white;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  form {
+    margin: 0;
+    .logout-btn, .login-btn {
+      border: none;
+      width: 170px;
+      height: 53px;
+      padding: 16px 40px;
+      border-radius: 4px;
+      background-color: white;
+      font-family: Roboto;
+      font-size: 18px;
+      font-weight: 400;
+      line-height: 21px;
+      letter-spacing: 0em;
+      &:hover {
+        background: rgba(255, 255, 255, 0.909);
+      }
+    }
   }
 }
 
@@ -180,6 +183,19 @@ footer {
     margin-top: 50px;
     width: 322px;
   }
+  .avatar-btn {
+    display: block;
+    width: 202px;
+    height: 32px;
+    top: 16px;
+    padding: 8px 24px;
+    margin: 0;
+    border-radius: 4px;
+    background-color: #0000001A;
+  }
+  .avatar-input {
+    display: none;
+  }
 }
 
 // skills index
@@ -192,7 +208,6 @@ footer {
     width: 960px;
     border: 1px solid #00000080;
     border-radius: 8px;
-    // margin-bottom: 20px;
     margin: 20px auto 20px;
     padding: 40px;
     gap: 80px;
@@ -303,23 +318,23 @@ footer {
             letter-spacing: 0em;
             text-align: center;
           }
-          .delete-link {
-            width: 88px;
-            height: 32px;
-            border-radius: 4px;
-            background-color: #EE6969;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            a {
+          form {
+            margin: 0;
+            button {
+              width: 88px;
+              height: 32px;
+              padding: 8px 16px;
+              border-radius: 4px;
+              background-color: #EE6969;
               color: white;
+              border: none;
               font-family: Roboto;
               font-size: 14px;
               font-weight: 400;
               line-height: 16px;
               letter-spacing: 0em;
               text-align: left;
-              
+              vertical-align: middle;
             }
           }
         }
