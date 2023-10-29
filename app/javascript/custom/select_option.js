@@ -2,7 +2,7 @@ document.addEventListener('DOMContentLoaded', () => {
   document.getElementById('custom_select').addEventListener('change', function(e) {
     let selectedValue = this.value;
 
-    window.location.href = 'http://localhost:3000/items/?selected_value=' + selectedValue;
+    window.location.href = 'https://prum-portfolio.onrender.com/?selected_value=' + selectedValue;
   });
 
   // 現在のURLを取得
