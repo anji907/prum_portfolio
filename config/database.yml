@@ -49,9 +49,6 @@ test:
 # for a full overview on how database connection configuration can be specified.
 production:
   <<: *default
-  database: portfolio_production
-  username: portfolio
-  password: <%= ENV["PORTFOLIO_DATABASE_PASSWORD"] %>
   adapter: postgresql
   encoding: unicode
   url: <%= ENV['DATABASE_URL'] %>
