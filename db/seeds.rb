@@ -1,4 +1,3 @@
-User.delete_all
 User.create!(name: 'sample', email: 'sample@example.com',
             password: 'password', password_confirmation: 'password',
             bio: "#{"自己紹介です。" * 10}")
