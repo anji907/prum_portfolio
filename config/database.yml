@@ -47,10 +47,11 @@ test:
 #
 # Read https://guides.rubyonrails.org/configuring.html#configuring-a-database
 # for a full overview on how database connection configuration can be specified.
-#
 production:
   <<: *default
   database: portfolio_production
   username: portfolio
   password: <%= ENV["PORTFOLIO_DATABASE_PASSWORD"] %>
-  url: <%= ENV['CLEARDB_DATABASE_URL']&.sub(/\Amysql/, 'mysql2') %>
+  adapter: postgresql
+  encoding: unicode
+  url: <%= ENV['DATABASE_URL'] %>
