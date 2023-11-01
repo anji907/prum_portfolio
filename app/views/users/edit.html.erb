@@ -2,11 +2,11 @@
 
 <%= form_with(model: @user, class: 'profile-edit') do |f| %>
   <%= render 'shared/error_messages', object: @user %>
-  <%= f.label :bio %>
+  <%= f.label :bio, "自己紹介文" %>
   <%= f.text_area :bio, class: 'form-control' %>
   <small>50文字以上、200文字未満で入力してください</small><br>
 
-  <%= f.label :avatar %>
+  <%= f.label :avatar, "アバター画像" %>
   <%= f.label :avatar, "画像ファイルを添付する", class: 'avatar-btn' %>
   <%= f.file_field :avatar, class: 'avatar-input', accept: "image/jpeg,image/gif,image/png" %>
 
