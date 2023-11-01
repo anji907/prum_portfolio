@@ -4,6 +4,8 @@
     <%= form_with(model: @item) do |f| %>
       <%= render 'shared/error_messages', object: @item %>
       <%= f.hidden_field :category_id, value: @item.category.id %>
+      <%= f.hidden_field :created_at, value: @item.created_at %>
+      <%= hidden_field_tag :selected_value, @selected_value %>
 
       <%= f.label :name %>
       <%= f.text_field :name, class: 'form-control' %>

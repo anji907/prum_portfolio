@@ -21,15 +21,22 @@ class ItemsController < ApplicationController
   end
 
   def new
+    query = get_referer_query
+    month = if query["selected_value"][0]
+              query["selected_value"][0].to_i
+            else
+              Time.current.month
+            end
     category = Category.find(params[:category_id])
-    @item = category.items.build 
+    @item = category.items.build(created_at: Time.current.change(month: month))
+    @selected_value = month
   end
 
   def create
     @item = Item.new(item_params)
     if @item.save
       message = "#{@item.category.name}に#{@item.name}を\n#{@item.learning_time}分で追加しました！"
-      redirect_to items_path, flash: { success: message }, status: :found
+      redirect_to items_path(selected_value: params[:selected_value]), flash: { success: message }, status: :found
     else
       render 'new', status: :unprocessable_entity
     end
@@ -53,12 +60,16 @@ class ItemsController < ApplicationController
   private
 
     def item_params
-      params.require(:item).permit(:name, :learning_time, :category_id).merge(user_id: current_user.id)
+      params.require(:item).permit(:name, :learning_time, :category_id, :created_at).merge(user_id: current_user.id)
+    end
+
+    def get_referer_query
+      uri = URI.parse(request.referer)
+      query = CGI.parse(uri.query) if uri.query
     end
 
     def determine_redirect_path
-      uri = URI.parse(request.referer)
-      query = CGI.parse(uri.query) if uri.query
+      query = get_referer_query
       path = query.nil? ? items_path : items_path(selected_value: query["selected_value"][0])
     end
 end
