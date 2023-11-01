@@ -1,5 +1,5 @@
 User.create!(name: 'sample', email: 'sample@example.com',
-            password: 'password', password_confirmation: 'password',
+            password: 'password1234', password_confirmation: 'password1234',
             bio: "#{"自己紹介です。" * 10}")
 
 backend = Category.create!(name: "バックエンド")
