@@ -3,7 +3,9 @@ class User < ApplicationRecord
   has_secure_password
   validates :bio, length: { minimum: 50, maximum: 200 }, on: :update
   validates :email, presence: true, uniqueness: true
-  validates :password, length: { minimum: 8 }, allow_nil: true
+  VALID_PASSWORD_REGEX = /[a-z]\d/i
+  validates :password, length: { minimum: 8 }, allow_nil: true,
+            format: { with: VALID_PASSWORD_REGEX, message: "は英数字を含めてください。" }
 
   has_one_attached :avatar
   has_many :items, dependent: :destroy
